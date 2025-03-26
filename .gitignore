@@ -1,4 +1,5 @@
 album_covers/
+album_covers/*.jpg
 pkmn_cards/
 io/output/
 download.py
