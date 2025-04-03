@@ -40,8 +40,8 @@ def generate_mosaic(target_image, images, colors, output_path, width_in_tiles, c
 
     lab_target = cv2.cvtColor(target_image, cv2.COLOR_BGR2LAB)
 
-    # select from top 1%
-    top_n = max(int(0.01 * len(images)), 1)
+    # select from top 5%
+    top_n = max(int(0.05 * len(images)), 1)
     
     mosaic_rows = []
     with tqdm(total=width_in_tiles * height_in_tiles) as pb:
@@ -71,18 +71,19 @@ def generate_mosaic(target_image, images, colors, output_path, width_in_tiles, c
     cv2.imwrite(output_path, final_mosaic)
     return output_path
 
-target_name = "roingus"
-target = cv2.imread(f"io/input/{target_name}.png")
-# 33% stretch of original card because pokemon card aspect ratio
-# target = cv2.resize(target, (int(target.shape[1] * 1.33), target.shape[0]))
-width_tiles = 32
+target_name = "hampter2.jpg"
+target = cv2.imread(f"io/input/{target_name}")
+# #33% stretch of original card because pokemon card aspect ratio
+target = cv2.resize(target, (int(target.shape[1] * 1.33), target.shape[0]))
+width_tiles = 64
 
 print("loading images")
-folder = "album_covers"
+folder = "art_images/jpgs"
+style = folder.split('/')[0]
 images, colors = load_images(folder)
 print("loading done")
 
 print("generating mosaic")
-output_path = f"io/output/{folder}_{target_name}_{width_tiles}w.png"
+output_path = f"io/output/{style}_{os.path.splitext(target_name)[0]}_{width_tiles}w.png"
 generate_mosaic(target, images, colors, output_path, width_tiles)
 print("mosaic done")
