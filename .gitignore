@@ -1,5 +1,6 @@
 album_covers/
 pkmn_cards/
+io/input/colorful.jpeg
 io/output/
 download.py
 resize_dataset.py
